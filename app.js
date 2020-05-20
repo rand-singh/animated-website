@@ -1,4 +1,4 @@
-let controller, slideScene, pageScene;
+let controller, slideScene, pageScene, detailScene;
 
 function animateSlides() {
   // init controller
@@ -128,12 +128,17 @@ barba.init({
       namespace: "tech",
       beforeEnter() {
         logo.href = "../index.html";
+        detailAnimation();
         gsap.fromTo(
           ".nav-header",
           1,
           { y: "100%" },
           { y: "0%", ease: "power2.inOut" }
         );
+      },
+      beforeLeave() {
+        controller.destroy();
+        detailScene.destroy();
       },
     },
   ],
@@ -168,6 +173,35 @@ barba.init({
     },
   ],
 });
+
+function detailAnimation() {
+  controller = new ScrollMagic.Controller();
+  const slides = document.querySelectorAll(".detail-slide");
+  slides.forEach((slide, index, slides) => {
+    const slideTl = gsap.timeline({ defailts: { duratipon: 1 } });
+    let nextSlide = slides.length - 1 === index ? "end" : slides[index + 1];
+    const nextImg = nextSlide.querySelector("img");
+    const nextTxt = nextSlide.querySelector(".tech-text p");
+    slideTl.fromTo(slide, { opacity: 1 }, { opacity: 0 });
+    slideTl.fromTo(nextSlide, { opacity: 0 }, { opacity: 1 }, "-=1");
+    slideTl.fromTo(nextImg, { x: "50%", opacity: 0 }, { x: "0%", opacity: 1 });
+    slideTl.fromTo(nextTxt, { y: "100%", opacity: 0 }, { y: "0%", opacity: 1 });
+    //scene
+    detailScene = new ScrollMagic.Scene({
+      triggerElement: slide,
+      duration: "100%",
+      triggerHook: 0,
+    })
+      .setPin(slide, { pushFollowers: false })
+      .setTween(slideTl)
+      .addIndicators({
+        colorStart: "white",
+        colorTrigger: "white",
+        name: "detailScene",
+      })
+      .addTo(controller);
+  });
+}
 
 // event listeners
 burger.addEventListener("click", navToggle);
