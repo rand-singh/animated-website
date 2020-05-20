@@ -203,3 +203,65 @@ body {
 body.hide {
   overflow: hidden;
 }
+
+/* other pages */
+.tech1,
+.tech2,
+.tech3 {
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin: auto;
+  color: white;
+  margin-top: 5rem;
+  flex-wrap: wrap;
+  position: relative;
+}
+.tech-img {
+  height: 70vh;
+  flex-basis: 30rem;
+}
+
+.tech-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tech-text {
+  flex: 1;
+  position: relative;
+  flex-basis: 25rem;
+}
+
+.tech-text h1 {
+  font-size: 6rem;
+  padding: 5rem 0;
+}
+
+.tech1 h1 {
+  color: rgb(255, 139, 93);
+}
+.tech2 h1 {
+  color: rgb(167, 110, 231);
+}
+.tech3 h1 {
+  color: rgb(86, 124, 228);
+}
+
+.tech-text p {
+  font-size: 2rem;
+  padding: 2rem 2rem 0 0;
+  margin-bottom: 10rem;
+}
+
+.tech-nr {
+  font-size: 15rem;
+  position: absolute;
+  left: 69%;
+  bottom: 10%;
+  color: white;
+  opacity: 0.4;
+}
